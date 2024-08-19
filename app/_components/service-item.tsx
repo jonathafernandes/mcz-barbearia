@@ -128,7 +128,6 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                       <p className="text-center text-sm text-gray-400">
                         {hour ? `às ${hour}` : "Selecione um horário"}
                       </p>
-                      {/* {date && hour && ( */}
                       <Button
                         disabled={!date || !hour}
                         size="lg"
@@ -137,7 +136,6 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                       >
                         Confirmar reserva
                       </Button>
-                      {/* // )} */}
                     </CardContent>
                   </Card>
                 </div>
