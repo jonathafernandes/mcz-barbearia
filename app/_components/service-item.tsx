@@ -15,6 +15,11 @@ import { Calendar } from "./ui/calendar"
 import { useMemo, useState } from "react"
 import { ptBR } from "date-fns/locale"
 import { generateDayTimeList } from "../barbershops/[id]/_helpers/hours"
+import { Badge } from "./ui/badge"
+import { setHours, setMinutes } from "date-fns"
+import { saveBooking } from "../barbershops/[id]/_actions/save-booking"
+import { useSession } from "next-auth/react"
+import { Loader2 } from "lucide-react"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -23,6 +28,9 @@ interface ServiceItemProps {
 const ServiceItem = ({ service }: ServiceItemProps) => {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [hour, setHour] = useState<string | undefined>()
+  const [submitIsLoading, setSubmitIsLoading] = useState(false)
+
+  const { data } = useSession()
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date)
@@ -31,6 +39,31 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
 
   const handleHourClick = (time: string) => {
     setHour(time)
+  }
+
+  const handleBookingSubmit = async () => {
+    setSubmitIsLoading(true)
+    try {
+      if (!date || !hour || !data?.user) {
+        return
+      }
+
+      const dateHour = Number(hour.split(":")[0])
+      const dateMinute = Number(hour.split(":")[1])
+
+      const newDate = setMinutes(setHours(date, dateHour), dateMinute)
+
+      await saveBooking({
+        serviceId: service.id,
+        barbershopId: service.barbershopId,
+        date: newDate,
+        userId: (data.user as any).id,
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setSubmitIsLoading(false)
+    }
   }
 
   const timeList = useMemo(() => {
@@ -117,9 +150,17 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                 <div className="py-6">
                   <Card className="rounded-none border-none">
                     <CardContent className="flex flex-col items-center justify-center px-3 uppercase">
-                      <h3 className="mt-2 w-full border-b border-solid p-1">
-                        {service.name}
-                      </h3>
+                      <div className="mt-2 flex items-center">
+                        <h3 className="w-full p-1 font-semibold">
+                          {service.name}
+                        </h3>
+                        <Badge variant="outline">
+                          {Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                          }).format(Number(service.price))}
+                        </Badge>
+                      </div>
                       <p className="mt-3 text-center text-sm text-gray-400">
                         {date
                           ? `Você selecionou o dia ${date.toLocaleDateString("pt-BR")}`
@@ -129,11 +170,15 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                         {hour ? `às ${hour}` : "Selecione um horário"}
                       </p>
                       <Button
-                        disabled={!date || !hour}
+                        onClick={handleBookingSubmit}
+                        disabled={!date || !hour || submitIsLoading}
                         size="lg"
                         className="mt-3 w-full"
                         variant="default"
                       >
+                        {submitIsLoading && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
                         Confirmar reserva
                       </Button>
                     </CardContent>
