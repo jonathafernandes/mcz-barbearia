@@ -1,6 +1,6 @@
 "use client"
 
-import { BarbershopService } from "@prisma/client"
+import { BarbershopService, Booking } from "@prisma/client"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet"
 import { Calendar } from "./ui/calendar"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ptBR } from "date-fns/locale"
 import { generateDayTimeList } from "../barbershops/[id]/_helpers/hours"
 import { Badge } from "./ui/badge"
@@ -22,6 +22,7 @@ import { useSession } from "next-auth/react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { getDayBookins } from "../barbershops/[id]/_actions/get-day-bookins"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -34,8 +35,22 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
   const [hour, setHour] = useState<string | undefined>()
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
   const [sheetIsOpen, setSheetIsOpen] = useState(false)
+  const [dayBookings, setDayBookings] = useState<Booking[]>([])
 
   const { data } = useSession()
+
+  useEffect(() => {
+    if (!date) {
+      return
+    }
+
+    const refreshAvailableHours = async () => {
+      const _dayBookings = await getDayBookins(date)
+      setDayBookings(_dayBookings)
+    }
+
+    refreshAvailableHours()
+  }, [date])
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date)
@@ -85,8 +100,28 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
   }
 
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : []
-  }, [date])
+    if (!date) {
+      return []
+    }
+
+    return generateDayTimeList(date).filter((time) => {
+      const timeHour = Number(time.split(":")[0])
+      const timeMinutes = Number(time.split(":")[1])
+
+      const booking = dayBookings.find((booking) => {
+        const bookingHour = booking.date.getHours()
+        const bookingMinutes = booking.date.getMinutes()
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes
+      })
+
+      if (!booking) {
+        return true
+      }
+
+      return false
+    })
+  }, [date, dayBookings])
 
   return (
     <Card>
