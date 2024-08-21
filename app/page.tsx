@@ -26,9 +26,6 @@ const Home = async () => {
           Serviços
         </h2>
         <div className="flex flex-col gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
-          {/* {barbershop.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-          ))} */}
           {services?.map((service) => (
             <ServiceItem key={service.id} service={service} />
           ))}

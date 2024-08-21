@@ -97,7 +97,6 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
         serviceId: service.id,
         barbershopId: service.barbershopId,
         date: newDate,
-        userId: (data.user as any).id,
       })
 
       setSheetIsOpen(false)
@@ -114,6 +113,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
       })
     } catch (error) {
       console.error(error)
+      toast("Ocorreu um erro ao realizar a reserva!")
     } finally {
       setSubmitIsLoading(false)
     }
