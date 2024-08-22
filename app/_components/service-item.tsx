@@ -155,7 +155,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
               className="rounded-lg object-cover"
             />
           </div>
-          <div className="space-y-2">
+          <div className="w-full space-y-2">
             <h3 className="text-sm font-semibold uppercase">{service.name}</h3>
             <p className="text-sm text-gray-400">{service.description}</p>
             <div className="flex items-center justify-between">
