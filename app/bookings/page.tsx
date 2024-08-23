@@ -53,23 +53,35 @@ const Bookings = async () => {
   return (
     <>
       <Header />
-      <h1 className="mb-3 p-5 text-xl font-bold">Agendamentos</h1>
-      <div className="px-5">
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Confirmados
-        </h2>
-        {confirmedBookings.map((booking) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
-      </div>
-      <div className="px-5">
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Finalizados
-        </h2>
-        {finishedBookings.map((booking) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
-      </div>
+      {confirmedBookings.length > 0 || finishedBookings.length > 0 ? (
+        <>
+          <h1 className="mb-3 p-5 text-xl font-bold">Agendamentos</h1>
+          <div className="px-5">
+            {confirmedBookings.length > 0 && (
+              <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+                Confirmados
+              </h2>
+            )}
+            {confirmedBookings.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
+          </div>
+          <div className="px-5">
+            {finishedBookings.length > 0 && (
+              <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+                Finalizados
+              </h2>
+            )}
+            {finishedBookings.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="flex h-[calc(100vh-64px)] items-center justify-center">
+          <p className="text-gray-400">Nenhum agendamento encontrado.</p>
+        </div>
+      )}
     </>
   )
 }

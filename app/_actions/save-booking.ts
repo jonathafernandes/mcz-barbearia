@@ -3,6 +3,7 @@
 import { authOptions } from "@/app/_lib/auth"
 import { db } from "@/app/_lib/prisma"
 import { getServerSession } from "next-auth"
+import { revalidatePath } from "next/cache"
 
 interface SaveBookingParams {
   barbershopId: string
@@ -23,4 +24,6 @@ export const saveBooking = async (params: SaveBookingParams) => {
       userId: (user.user as any).id,
     },
   })
+  revalidatePath("/barbershops[id]")
+  revalidatePath("/bookings")
 }

@@ -22,7 +22,7 @@ import { useSession } from "next-auth/react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { getDayBookins } from "../_actions/get-day-bookins"
+import { getDayBookings } from "../_actions/get-day-bookings"
 import { Dialog } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 
@@ -48,7 +48,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
     }
 
     const refreshAvailableHours = async () => {
-      const _dayBookings = await getDayBookins(date)
+      const _dayBookings = await getDayBookings(date)
       setDayBookings(_dayBookings)
     }
 

@@ -19,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="dark">
-      <body className={inter.className}>
+      <body className={`${inter.className} flex min-h-screen flex-col`}>
         <AuthProvider>
-          {children}
+          <main className="flex-grow">{children}</main>
           <Toaster />
           <Footer />
         </AuthProvider>
