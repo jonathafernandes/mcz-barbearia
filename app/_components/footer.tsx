@@ -1,5 +1,4 @@
 import { db } from "../_lib/prisma"
-import PhoneItem from "./phone-item"
 import { Card, CardContent } from "./ui/card"
 
 const Footer = async () => {
@@ -12,20 +11,16 @@ const Footer = async () => {
   return (
     <footer>
       <Card>
-        <CardContent className="flex justify-between px-5 py-6">
-          <div className="space-y-6">
-            <p className="text-sm text-gray-400">
+        <CardContent className="flex flex-col justify-between px-5 py-6">
+          <div className="space-y-6 text-sm text-gray-400">
+            <p>
               2024 Copyright{" "}
               <span className="font-bold">{barbershop?.name}</span>
             </p>
-            <p className="text-sm text-gray-400">{barbershop?.address}</p>
-          </div>
-          <div className="space-y-3">
-            {barbershop?.phones.map((phone) => (
-              <div key={phone}>
-                <PhoneItem phone={phone} />
-              </div>
-            ))}
+            <div className="space-y-2">
+              <p>{barbershop?.address}</p>
+              <p>{barbershop?.phones}</p>
+            </div>
           </div>
         </CardContent>
       </Card>

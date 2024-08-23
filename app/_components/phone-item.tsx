@@ -15,7 +15,7 @@ const PhoneItem = ({ phone }: PhoneItemProps) => {
   }
 
   return (
-    <div className="justify-between space-y-3" key={phone}>
+    <div className="flex justify-between space-y-3">
       <div className="flex items-center gap-2">
         <SmartphoneIcon size={16} />
         <p className="text-sm">{phone}</p>
