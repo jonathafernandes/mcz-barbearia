@@ -61,7 +61,7 @@ const Home = async () => {
             alt="Agende nos melhores com FSW Barber"
             src="/banner-01.png"
             fill
-            className="rounded object-cover"
+            className="rounded border border-solid border-zinc-800 object-cover"
           />
         </div>
         {session?.user && (
