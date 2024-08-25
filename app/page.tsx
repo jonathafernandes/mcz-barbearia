@@ -5,6 +5,8 @@ import { db } from "./_lib/prisma"
 import ServiceItem from "./_components/service-item"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -35,8 +37,25 @@ const Home = async () => {
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, João!</h2>
-        <p>Segunda-feira, 05 de agosto.</p>
+        <h2 className="text-xl font-bold">
+          Olá,{" "}
+          {session?.user
+            ? session.user.name?.split(" ")[0]
+            : "seja bem-vindo(a)"}
+          !
+        </h2>
+        {session?.user && (
+          <p>
+            <span className="capitalize">
+              {format(new Date(), "EEEE, dd", { locale: ptBR })}
+            </span>{" "}
+            de{" "}
+            <span className="capitalize">
+              {format(new Date(), "MMMM", { locale: ptBR })}
+            </span>
+            .
+          </p>
+        )}
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             alt="Agende nos melhores com FSW Barber"
