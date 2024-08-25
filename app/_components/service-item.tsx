@@ -16,7 +16,7 @@ import { useEffect, useMemo, useState } from "react"
 import { ptBR } from "date-fns/locale"
 import { generateDayTimeList } from "../_helpers/hours"
 import { Badge } from "./ui/badge"
-import { setHours, setMinutes, format } from "date-fns"
+import { setHours, setMinutes, format, isPast, set } from "date-fns"
 import { saveBooking } from "../_actions/save-booking"
 import { useSession } from "next-auth/react"
 import { Loader2 } from "lucide-react"
@@ -124,9 +124,19 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
       return []
     }
 
+    const isToday =
+      format(date, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd")
+
     return generateDayTimeList(date).filter((time) => {
       const timeHour = Number(time.split(":")[0])
       const timeMinutes = Number(time.split(":")[1])
+
+      if (
+        isToday &&
+        isPast(set(new Date(), { hours: timeHour, minutes: timeMinutes }))
+      ) {
+        return false
+      }
 
       const booking = dayBookings.find((booking) => {
         const bookingHour = booking.date.getHours()
@@ -212,16 +222,22 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                   />
                   {date && (
                     <div className="mx-4 mt-4 flex flex-wrap justify-center gap-2">
-                      {timeList.map((time) => (
-                        <Button
-                          onClick={() => handleHourClick(time)}
-                          key={time}
-                          variant={hour === time ? "default" : "outline"}
-                          className="!m-0"
-                        >
-                          {time}
-                        </Button>
-                      ))}
+                      {timeList.length > 0 ? (
+                        timeList.map((time) => (
+                          <Button
+                            onClick={() => handleHourClick(time)}
+                            key={time}
+                            variant={hour === time ? "default" : "outline"}
+                            className="!m-0"
+                          >
+                            {time}
+                          </Button>
+                        ))
+                      ) : (
+                        <p className="text-center text-sm text-gray-400">
+                          Nenhum horário disponível
+                        </p>
+                      )}
                     </div>
                   )}
 

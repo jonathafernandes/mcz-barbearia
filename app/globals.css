@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  .dark {
+  *.dark {
     --background: 225 9% 9%;
     --foreground: 210 40% 98%;
 
