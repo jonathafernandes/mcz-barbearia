@@ -177,7 +177,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                       Cancelar reserva
                     </Button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent>
+                  <AlertDialogContent className="w-[90%]">
                     <AlertDialogHeader>
                       <AlertDialogTitle>
                         Tem certeza que deseja cancelar sua reserva?
