@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky && prisma generate"
+    "prepare": "prisma generate",
+    "postinstall": "if [ \"$VERCEL\" != \"true\" ]; then husky install; fi && prisma generate"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
