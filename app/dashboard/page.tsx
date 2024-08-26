@@ -38,10 +38,12 @@ const DashboardPage = async () => {
         <h3>Total de agendamentos</h3>
         <Badge variant="default">{totalBookings}</Badge>
       </div>
-      <div className="mt-8 px-5">
-        <h2>Agendamentos</h2>
+      <div className="my-8 px-5">
         {bookings.map((booking) => (
-          <div key={booking.id} className="my-4 flex uppercase">
+          <div
+            key={booking.id}
+            className="mb-4 flex rounded border border-solid uppercase"
+          >
             <div className="flex w-2/6 flex-col border border-solid p-3">
               <p>
                 {format(booking.date, "dd MMMM yyyy", {
