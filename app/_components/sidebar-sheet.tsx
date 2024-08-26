@@ -1,16 +1,41 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Button } from "./ui/button"
-import { CalendarIcon, HomeIcon, LogOutIcon } from "lucide-react"
+import {
+  CalendarIcon,
+  HomeIcon,
+  LayoutDashboardIcon,
+  LogOutIcon,
+} from "lucide-react"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { Dialog, DialogTrigger } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
+import { getUsers } from "../_actions/get-users"
 
 const SidebarSheet = () => {
   const { data } = useSession()
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (data?.user?.email) {
+        const users = await getUsers()
+        const currentUser = users.find(
+          (user) => user.email === data.user?.email,
+        )
+
+        if (currentUser) {
+          setIsAdmin(currentUser?.isAdmin ?? false)
+        }
+      }
+    }
+
+    fetchUser()
+  }, [data])
 
   const handleLogoutClick = () => signOut()
 
@@ -63,6 +88,15 @@ const SidebarSheet = () => {
             <Link href="/bookings">
               <CalendarIcon size={18} />
               Agendamentos
+            </Link>
+          </Button>
+        )}
+
+        {isAdmin && (
+          <Button className="justify-start gap-2" variant="ghost" asChild>
+            <Link href="/dashboard">
+              <LayoutDashboardIcon size={18} />
+              Dashboard
             </Link>
           </Button>
         )}

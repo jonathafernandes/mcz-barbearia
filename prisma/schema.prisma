@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  isAdmin       Boolean?  @default(false) @map("is_admin")
 
   @@map("users")
 }
