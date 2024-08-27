@@ -64,7 +64,7 @@ const Home = async () => {
             className="rounded border border-solid border-zinc-800 object-cover"
           />
         </div>
-        {session?.user && (
+        {session?.user && booking.length > 0 ? (
           <div>
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Agendamentos
@@ -73,6 +73,8 @@ const Home = async () => {
               <BookingItem key={booking.id} booking={booking} />
             ))}
           </div>
+        ) : (
+          ""
         )}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Serviços

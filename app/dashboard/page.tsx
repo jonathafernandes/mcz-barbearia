@@ -15,6 +15,11 @@ const DashboardPage = async () => {
   }
 
   const bookings = await db.booking.findMany({
+    where: {
+      date: {
+        gte: new Date(),
+      },
+    },
     include: {
       user: true,
       service: {
@@ -28,7 +33,7 @@ const DashboardPage = async () => {
     },
   })
 
-  const totalBookings = await db.booking.count()
+  const totalBookings = bookings.length
 
   return (
     <>
@@ -39,25 +44,33 @@ const DashboardPage = async () => {
         <Badge variant="default">{totalBookings}</Badge>
       </div>
       <div className="my-8 px-5">
-        {bookings.map((booking) => (
-          <div
-            key={booking.id}
-            className="mb-4 flex rounded border border-solid uppercase"
-          >
-            <div className="flex w-2/6 flex-col border border-solid p-3">
-              <p>
-                {format(booking.date, "dd MMMM yyyy", {
-                  locale: ptBR,
-                })}
+        {bookings.length === 0 ? (
+          <p className="flex h-[calc(100vh-64px)] items-center justify-center">
+            Nenhum agendamento para ser exibido.
+          </p>
+        ) : (
+          bookings.map((booking) => (
+            <div
+              key={booking.id}
+              className="mb-4 flex rounded border border-solid uppercase"
+            >
+              <div className="flex flex-col border border-solid p-3">
+                <p>
+                  {format(booking.date, "dd/MM/yyyy", {
+                    locale: ptBR,
+                  })}
+                </p>
+                <span>{format(booking.date, "HH:mm", { locale: ptBR })}</span>
+              </div>
+              <p className="w-full border border-solid p-3">
+                {booking.service.name}
               </p>
-              <span>{format(booking.date, "HH:mm", { locale: ptBR })}</span>
+              <p className="w-full border border-solid p-3">
+                {booking.user.name}
+              </p>
             </div>
-            <p className="w-2/6 border border-solid p-3">
-              {booking.service.name}
-            </p>
-            <p className="border border-solid p-3">{booking.user.name}</p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </>
   )
