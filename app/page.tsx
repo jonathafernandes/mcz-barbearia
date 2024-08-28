@@ -36,36 +36,41 @@ const Home = async () => {
   return (
     <div>
       <Header />
-      <div className="p-5">
-        <h2 className="text-xl font-bold">
-          Olá,{" "}
-          {session?.user
-            ? session.user.name?.split(" ")[0]
-            : "seja bem-vindo(a)"}
-          !
-        </h2>
-        {session?.user && (
-          <p>
-            <span className="capitalize">
-              {format(new Date(), "EEEE, dd", { locale: ptBR })}
-            </span>{" "}
-            de{" "}
-            <span className="capitalize">
-              {format(new Date(), "MMMM", { locale: ptBR })}
-            </span>
-            .
-          </p>
-        )}
-        <div className="relative mt-6 w-full lg:h-auto">
-          <Image
-            alt="Agende nos melhores com FSW Barber"
-            src="/banner-01.png"
-            width={100}
-            height={150}
-            layout="responsive"
-            className="rounded border border-solid border-zinc-800 object-cover"
-          />
+      <div className="mb-8 p-5">
+        <div className="md:flex md:items-center md:justify-around">
+          <div className="mb-3">
+            <h2 className="text-xl font-bold lg:text-2xl">
+              Olá,{" "}
+              {session?.user
+                ? session.user.name?.split(" ")[0]
+                : "seja bem-vindo(a)"}
+              !
+            </h2>
+            {session?.user && (
+              <p className="lg:text-xl">
+                <span className="capitalize">
+                  {format(new Date(), "EEEE, dd", { locale: ptBR })}
+                </span>{" "}
+                de{" "}
+                <span className="capitalize">
+                  {format(new Date(), "MMMM", { locale: ptBR })}
+                </span>
+                .
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <Image
+              alt="Agende nos melhores com FSW Barber"
+              src="/banner-01.png"
+              width={100}
+              height={150}
+              layout="responsive"
+              className="rounded border border-solid border-zinc-800 object-cover md:border-none"
+            />
+          </div>
         </div>
+
         {session?.user && booking.length > 0 ? (
           <div>
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
