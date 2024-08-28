@@ -47,3 +47,7 @@
     @apply h-full bg-background text-foreground;
   }
 }
+
+.space-y-4.rdp-caption_start.rdp-caption_end {
+  width: 100% !important;
+}

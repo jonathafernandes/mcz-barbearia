@@ -56,11 +56,13 @@ const Home = async () => {
             .
           </p>
         )}
-        <div className="relative mt-6 h-[150px] w-full">
+        <div className="relative mt-6 w-full lg:h-auto">
           <Image
             alt="Agende nos melhores com FSW Barber"
             src="/banner-01.png"
-            fill
+            width={100}
+            height={150}
+            layout="responsive"
             className="rounded border border-solid border-zinc-800 object-cover"
           />
         </div>
@@ -79,7 +81,7 @@ const Home = async () => {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Serviços
         </h2>
-        <div className="flex flex-col gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <div className="lg:itens-center flex flex-col gap-4 overflow-auto lg:flex-row lg:flex-wrap [&::-webkit-scrollbar]:hidden">
           {services?.map((service) => (
             <ServiceItem key={service.id} service={service} />
           ))}

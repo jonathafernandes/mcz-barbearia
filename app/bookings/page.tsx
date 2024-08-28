@@ -78,7 +78,7 @@ const Bookings = async () => {
           </div>
         </>
       ) : (
-        <div className="flex h-[calc(100vh-64px)] items-center justify-center">
+        <div className="mt-[50%] flex justify-center">
           <p className="text-gray-400">Nenhum agendamento encontrado.</p>
         </div>
       )}

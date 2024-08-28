@@ -45,7 +45,7 @@ const DashboardPage = async () => {
       </div>
       <div className="my-8 px-5">
         {bookings.length === 0 ? (
-          <p className="flex h-[calc(100vh-64px)] items-center justify-center">
+          <p className="mt-[50%] flex justify-center">
             Nenhum agendamento para ser exibido.
           </p>
         ) : (

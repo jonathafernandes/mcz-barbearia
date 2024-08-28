@@ -69,8 +69,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
   return (
     <>
       <Sheet open={isSheetOpen} onOpenChange={handleSheetClose}>
-        <SheetTrigger className="w-full">
-          <Card className="mb-4">
+        <SheetTrigger className="w-full lg:w-[400px]">
+          <Card className="mb-4 lg:mr-4">
             <CardContent className="flex justify-between p-0">
               <div className="flex flex-col items-start gap-2 py-5 pl-5">
                 <Badge
@@ -164,7 +164,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             </div>
           </div>
           <SheetFooter className="mt-6">
-            <div className="flex items-center gap-3">
+            <div className="flex w-full items-center gap-3">
               <SheetClose asChild>
                 <Button variant="outline" className="w-full">
                   Voltar
