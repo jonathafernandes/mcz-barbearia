@@ -18,7 +18,7 @@ export function generateDayTimeList(date: Date): string[] {
       break
   }
 
-  const interval = 45
+  const interval = 30
   const timesList: string[] = []
 
   let currentTime = startTime
