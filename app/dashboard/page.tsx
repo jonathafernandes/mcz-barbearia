@@ -52,22 +52,32 @@ const DashboardPage = async () => {
           bookings.map((booking) => (
             <div
               key={booking.id}
-              className="mb-4 flex rounded border border-solid uppercase"
+              className="mb-4 flex items-center space-x-4 rounded border border-solid p-3"
             >
-              <div className="flex flex-col border border-solid p-3">
-                <p>
+              <div className="flex flex-col">
+                <p className="font-bold">
                   {format(booking.date, "dd/MM/yyyy", {
                     locale: ptBR,
                   })}
                 </p>
                 <span>{format(booking.date, "HH:mm", { locale: ptBR })}</span>
               </div>
-              <p className="w-full border border-solid p-3">
-                {booking.service.name}
-              </p>
-              <p className="w-full border border-solid p-3">
-                {booking.user.name}
-              </p>
+              <div className="flex-1 uppercase">
+                <p className="border-b border-solid pb-2">
+                  <span>{booking.service.name}</span>
+                </p>
+                <p className="pt-2">
+                  <span>{booking.user.name}</span>
+                </p>
+              </div>
+              <div className="h-20 w-20">
+                {/*eslint-disable-next-line @next/next/no-img-element*/}
+                <img
+                  src={booking.user.image ?? "Imagem não disponível"}
+                  alt={booking.user.name ?? "Imagem não disponível"}
+                  className="h-full w-full rounded-[2px] object-cover"
+                />
+              </div>
             </div>
           ))
         )}
