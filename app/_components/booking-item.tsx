@@ -119,10 +119,15 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               </Avatar>
               <div className="flex flex-col">
                 <h3 className="font-bold">{barbershop.name}</h3>
-                <p className="text-xs">📌 {barbershop.address}</p>
+                <p className="text-xs">📍 {barbershop.address}</p>
               </div>
             </CardContent>
           </Card>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1740.7605450061037!2d-35.79276907765078!3d-9.570023666588211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x70149ae3325d78d%3A0x3eaacf8dda2da6ac!2sTv.%20Santa%20Rita%2C%2029%20-%20Clima%20Bom%2C%20Macei%C3%B3%20-%20AL%2C%2057071-171!5e0!3m2!1spt-BR!2sbr!4v1717515843800!5m2!1spt-BR!2sbr"
+            className="mt-4 w-full rounded border-2 border-zinc-500"
+            loading="lazy"
+          ></iframe>
           <div className="mt-8">
             <Badge
               className="w-fit"
