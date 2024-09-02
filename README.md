@@ -16,7 +16,7 @@ Sistema intuitivo de agendamento, onde o cliente pode escolher o serviço, barbe
 Sistema seguro de autenticação para clientes feito com Google.
 ---
 
-Feito com React, TypeScript, PostgreSQL, Tailwind CSS, Next.js, SHADCN UI e Node.js.
+Feito com React, TypeScript, Prisma, PostgreSQL, Tailwind CSS, Next.js, SHADCN UI e Node.js.
 
 ---
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
