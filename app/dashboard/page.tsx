@@ -1,19 +1,10 @@
-import { getServerSession } from "next-auth"
+import GetBookings from "../_providers/get-bookings"
 import Header from "../_components/header"
-import { db } from "../_lib/prisma"
-import { authOptions } from "../_lib/auth"
-import { notFound } from "next/navigation"
-import { format } from "date-fns"
-import { ptBR } from "date-fns/locale"
+
 import { Badge } from "../_components/ui/badge"
+import { db } from "../_lib/prisma"
 
 const DashboardPage = async () => {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    return notFound()
-  }
-
   const bookings = await db.booking.findMany({
     where: {
       date: {
@@ -21,15 +12,7 @@ const DashboardPage = async () => {
       },
     },
     include: {
-      user: true,
-      service: {
-        include: {
-          barbershop: true,
-        },
-      },
-    },
-    orderBy: {
-      date: "asc",
+      service: true,
     },
   })
 
@@ -49,37 +32,7 @@ const DashboardPage = async () => {
             Nenhum agendamento para ser exibido.
           </p>
         ) : (
-          bookings.map((booking) => (
-            <div
-              key={booking.id}
-              className="mb-4 flex items-center space-x-4 rounded border border-solid p-3"
-            >
-              <div className="flex flex-col">
-                <p className="font-bold">
-                  {format(booking.date, "dd/MM/yyyy", {
-                    locale: ptBR,
-                  })}
-                </p>
-                <span>{format(booking.date, "HH:mm", { locale: ptBR })}</span>
-              </div>
-              <div className="flex-1 uppercase">
-                <p className="border-b border-solid pb-2">
-                  <span>{booking.service.name}</span>
-                </p>
-                <p className="pt-2">
-                  <span>{booking.user.name}</span>
-                </p>
-              </div>
-              <div className="h-20 w-20">
-                {/*eslint-disable-next-line @next/next/no-img-element*/}
-                <img
-                  src={booking.user.image ?? "Imagem não disponível"}
-                  alt={booking.user.name ?? "Imagem não disponível"}
-                  className="h-full w-full rounded-[2px] object-cover"
-                />
-              </div>
-            </div>
-          ))
+          <GetBookings />
         )}
       </div>
     </>
