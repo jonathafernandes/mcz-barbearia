@@ -162,7 +162,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
               src={service.imageUrl}
               alt={service.name}
               fill
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover border border-solid border-gray-200"
             />
           </div>
           <div className="w-full space-y-2">
