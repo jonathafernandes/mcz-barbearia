@@ -30,7 +30,7 @@ const GetBookings = async () => {
     },
   })
 
-  return <DashboardItem bookings={bookings} />
+  return <DashboardItem bookings={JSON.parse(JSON.stringify(bookings))} />
 }
 
 export default GetBookings

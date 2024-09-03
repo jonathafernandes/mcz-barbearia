@@ -77,7 +77,10 @@ const Home = async () => {
               Agendamentos
             </h2>
             {booking.map((booking) => (
-              <BookingItem key={booking.id} booking={booking} />
+              <BookingItem
+                key={booking.id}
+                booking={JSON.parse(JSON.stringify(booking))}
+              />
             ))}
           </div>
         ) : (
@@ -88,7 +91,10 @@ const Home = async () => {
         </h2>
         <div className="lg:itens-center flex flex-col gap-4 overflow-auto lg:flex-row lg:flex-wrap [&::-webkit-scrollbar]:hidden">
           {services?.map((service) => (
-            <ServiceItem key={service.id} service={service} />
+            <ServiceItem
+              key={service.id}
+              service={JSON.parse(JSON.stringify(service))}
+            />
           ))}
         </div>
       </div>
