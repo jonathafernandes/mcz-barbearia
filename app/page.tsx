@@ -65,8 +65,9 @@ const Home = async () => {
               src="/banner-01.png"
               width={100}
               height={150}
-              layout="responsive"
               className="rounded border border-solid border-zinc-800 object-cover md:border-none"
+              style={{ width: "100%", height: "auto" }}
+              sizes="(max-width: 768px) 100vw, 768px"
             />
           </div>
         </div>
