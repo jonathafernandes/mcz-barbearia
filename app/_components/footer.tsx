@@ -1,3 +1,4 @@
+import { MapPin, Phone } from "lucide-react"
 import { db } from "../_lib/prisma"
 import { Card, CardContent } from "./ui/card"
 
@@ -7,6 +8,8 @@ const Footer = async () => {
       id: "059c2e1c-59f6-402c-bd25-d6f3b2aff3ff",
     },
   })
+
+  const url = `https://api.whatsapp.com/send?phone=${barbershop?.phones}`
 
   return (
     <footer>
@@ -18,8 +21,16 @@ const Footer = async () => {
               <span className="font-bold">{barbershop?.name}</span>
             </p>
             <div className="space-y-2">
-              <p>{barbershop?.address}</p>
-              <p>{barbershop?.phones}</p>
+              <div className="flex gap-2">
+                <MapPin size={16} />
+                <p>{barbershop?.address}</p>
+              </div>
+              <div className="flex gap-2">
+                <Phone size={16} />
+                <a href={url} target="_blank">
+                  {barbershop?.phones}
+                </a>
+              </div>
             </div>
           </div>
         </CardContent>

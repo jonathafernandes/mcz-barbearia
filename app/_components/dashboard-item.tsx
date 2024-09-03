@@ -72,7 +72,7 @@ const DashboardItem = ({ bookings }: DashboardItemProps) => {
               </div>
             </div>
           </SheetTrigger>
-          <SheetContent className="[w-90%]">
+          <SheetContent className="w-[90%]">
             <h1 className="mb-3 border-b border-solid pb-8 text-left text-xl font-bold">
               Informações da Reserva
             </h1>
