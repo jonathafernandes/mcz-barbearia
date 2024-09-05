@@ -14,23 +14,23 @@ const Home = async () => {
 
   const booking = session?.user
     ? await db.booking.findMany({
-        where: {
-          userId: (session?.user as any).id,
-          date: {
-            gte: new Date(),
+      where: {
+        userId: (session?.user as any).id,
+        date: {
+          gte: new Date(),
+        },
+      },
+      include: {
+        service: {
+          include: {
+            barbershop: true,
           },
         },
-        include: {
-          service: {
-            include: {
-              barbershop: true,
-            },
-          },
-        },
-        orderBy: {
-          date: "asc",
-        },
-      })
+      },
+      orderBy: {
+        date: "asc",
+      },
+    })
     : []
 
   return (
@@ -40,22 +40,15 @@ const Home = async () => {
         <div className="md:flex md:items-center md:justify-around">
           <div className="mb-3">
             <h2 className="text-xl font-bold lg:text-2xl">
-              Olá,{" "}
-              {session?.user
+              Olá, {session?.user
                 ? session.user.name?.split(" ")[0]
-                : "seja bem-vindo(a)"}
-              !
+                : "seja bem-vindo(a)"}!
             </h2>
             {session?.user && (
               <p className="lg:text-xl">
                 <span className="capitalize">
                   {format(new Date(), "EEEE, dd", { locale: ptBR })}
-                </span>{" "}
-                de{" "}
-                <span className="capitalize">
-                  {format(new Date(), "MMMM", { locale: ptBR })}
-                </span>
-                .
+                </span> de <span className="capitalize">{format(new Date(), "MMMM", { locale: ptBR })}</span>.
               </p>
             )}
           </div>
