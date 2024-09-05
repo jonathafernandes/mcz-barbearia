@@ -128,7 +128,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             className="mt-4 w-full rounded border-2 border-zinc-500"
             loading="lazy"
           ></iframe>
-          <div className="mt-8">
+          <div className="mt-6">
             <Badge
               className="w-fit"
               variant={isConfirmed ? "default" : "secondary"}
@@ -136,7 +136,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               {isConfirmed ? "Confirmado" : "Finalizado"}
             </Badge>
 
-            <div className="py-6">
+            <div className="mt-3">
               <Card>
                 <CardContent className="flex flex-col items-center justify-center px-3 uppercase">
                   <div className="mt-2 flex items-center">

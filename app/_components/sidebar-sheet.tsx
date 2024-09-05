@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react"
 import { Button } from "./ui/button"
 import {
+  Bolt,
+  CalendarCheck,
   CalendarIcon,
   HomeIcon,
-  LayoutDashboardIcon,
   LogOutIcon,
 } from "lucide-react"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
@@ -87,7 +88,7 @@ const SidebarSheet = () => {
           <Button className="justify-start gap-2" variant="ghost" asChild>
             <Link href="/bookings">
               <CalendarIcon size={18} />
-              Agendamentos
+              Meus agendamentos
             </Link>
           </Button>
         )}
@@ -95,8 +96,17 @@ const SidebarSheet = () => {
         {isAdmin && (
           <Button className="justify-start gap-2" variant="ghost" asChild>
             <Link href="/dashboard">
-              <LayoutDashboardIcon size={18} />
-              Dashboard
+              <CalendarCheck size={18} />
+              Todos agendamentos
+            </Link>
+          </Button>
+        )}
+
+        {isAdmin && (
+          <Button className="justify-start gap-2" variant="ghost" asChild>
+            <Link href="/manage-bookings">
+              <Bolt size={18} />
+              Gerenciar agendamentos
             </Link>
           </Button>
         )}
