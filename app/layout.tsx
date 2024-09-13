@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="dark">
-      <body className={`${inter.className} flex min-h-screen flex-col`}>
+      <body className={`${inter.className} antialiased max-w-7xl mx-auto flex min-h-screen flex-col`}>
         <AuthProvider>
           <main className="flex-grow">{children}</main>
           <Toaster />
