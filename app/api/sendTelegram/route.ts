@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { NextResponse } from 'next/server';
 
 interface BookingDetails {
@@ -24,7 +26,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     try {
-        const message = `💇🏼 Novo agendamento! 😀\n\nNome: ${bookingDetails.name}\nData: ${bookingDetails.date}\nHora: ${bookingDetails.time}`;
+        const message = `💇🏼 Novo agendamento! 😀\n\nNome: ${bookingDetails.name}\nData: ${format(bookingDetails.date, "dd/MM/yyy", { locale: ptBR })}\nHora: ${format(bookingDetails.time, "HH:mm", { locale: ptBR })}`;
 
         const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',

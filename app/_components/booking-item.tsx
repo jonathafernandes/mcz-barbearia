@@ -105,7 +105,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             </CardContent>
           </Card>
         </SheetTrigger>
-        <SheetContent className="w-[90%]">
+        <SheetContent className="w-[90%] overflow-auto">
           <h1 className="mb-3 border-b border-solid pb-8 text-left text-xl font-bold">
             Informações da Reserva
           </h1>
@@ -136,7 +136,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               {isConfirmed ? "Confirmado" : "Finalizado"}
             </Badge>
 
-            <div className="py-6">
+            <div className="pt-6 pb-4">
               <Card>
                 <CardContent className="flex flex-col items-center justify-center px-3 uppercase">
                   <div className="mt-2 flex items-center">
