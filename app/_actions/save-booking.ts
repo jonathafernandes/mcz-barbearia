@@ -27,7 +27,7 @@ export const saveBooking = async (params: SaveBookingParams) => {
     },
   });
 
-  const adjustedDate = addHours(params.date, -2);
+  const adjustedDate = addHours(params.date, -3);
 
   const bookingDetails = {
     name: user?.user?.name,
