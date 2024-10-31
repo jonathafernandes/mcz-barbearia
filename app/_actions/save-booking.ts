@@ -4,7 +4,7 @@ import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { format } from "date-fns";
+import { addHours, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 interface SaveBookingParams {
@@ -26,17 +26,21 @@ export const saveBooking = async (params: SaveBookingParams) => {
       userId: (user.user as any).id,
     },
   });
-  
+
+  const adjustedDate = addHours(params.date, -2);
+
   const bookingDetails = {
     name: user?.user?.name,
-    date: format(params.date, "dd/MM/yyyy", { locale: ptBR }),
-    time: format(params.date, "HH:mm", { locale: ptBR }),
+    date: format(adjustedDate, "dd/MM/yyyy", { locale: ptBR }),
+    time: format(adjustedDate, "HH:mm", { locale: ptBR }),
   };
 
   try {
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendTelegram`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ bookingDetails }),
     });
   } catch (error) {
