@@ -3,8 +3,17 @@ import Header from "../_components/header"
 
 import { Badge } from "../_components/ui/badge"
 import { db } from "../_lib/prisma"
+import { authOptions } from "../_lib/auth"
+import { getServerSession } from "next-auth"
+import { notFound } from "next/navigation"
 
 const DashboardPage = async () => {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    return notFound()
+  }
+
   const bookings = await db.booking.findMany({
     where: {
       date: {
